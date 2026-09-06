@@ -2,6 +2,11 @@
   "name": "ai-skills",
   "version": "1.0.0",
   "description": "Independent agent skills for development planning, QA planning, test-case generation, and Playwright automation",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cuongnguyen4285/ai-skills-project.git"
+  },
+  "homepage": "https://www.skills.sh/cuongnguyen4285/ai-skills-project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

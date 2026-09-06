@@ -6,26 +6,26 @@ This repository contains six independent, discoverable skills for planning, test
 
 The skills.sh homepage and leaderboard display skills from public GitHub repositories. The local `SKILL.md` files and `agents/openai.yaml` metadata do not create a public skills.sh listing by themselves.
 
-After this repository is pushed to a public GitHub repository, replace `<owner>/<repo>` below with the real GitHub source:
+This repository is published at `cuongnguyen4285/ai-skills-project`.
 
 ```bash
 # Install all skills from the repository
-npx skills add https://github.com/<owner>/<repo>
+npx skills add https://github.com/cuongnguyen4285/ai-skills-project
 
 # Install one skill
-npx skills add https://github.com/<owner>/<repo> --skill gen-api-test-cases
+npx skills add https://github.com/cuongnguyen4285/ai-skills-project --skill gen-api-test-cases
 ```
 
 Individual skill pages use this URL pattern:
 
 ```text
-https://www.skills.sh/<owner>/<repo>/<skill-name>
+https://www.skills.sh/cuongnguyen4285/ai-skills-project/<skill-name>
 ```
 
 For example, the API test-case skill would be:
 
 ```text
-https://www.skills.sh/<owner>/<repo>/gen-api-test-cases
+https://www.skills.sh/cuongnguyen4285/ai-skills-project/gen-api-test-cases
 ```
 
 The leaderboard position and install count are managed by skills.sh telemetry after users install the public skill. They cannot be set from `openai.yaml` or this local repository.
@@ -33,8 +33,17 @@ The leaderboard position and install count are managed by skills.sh telemetry af
 An install badge can be added after the repository URL is known:
 
 ```markdown
-[![skills.sh](https://skills.sh/b/<owner>/<repo>)](https://www.skills.sh/<owner>/<repo>)
+[![skills.sh](https://skills.sh/b/cuongnguyen4285/ai-skills-project)](https://www.skills.sh/cuongnguyen4285/ai-skills-project)
 ```
+
+Skill pages:
+
+- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/make-dev-plan>
+- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/make-qa-plan>
+- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/gen-api-test-cases>
+- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/gen-e2e-test-cases>
+- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/gen-api-test-cases-playwright>
+- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/gen-e2e-test-cases-playwright>
 
 ## Skills
 
