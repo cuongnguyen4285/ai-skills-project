@@ -35,14 +35,14 @@ The URL must be plain text in a terminal. Do not include Markdown link syntax su
 
 ## Skill overview
 
-| Skill | Use it when you need to | Main output |
-| --- | --- | --- |
-| [`make-dev-plan`](skills/make-dev-plan/SKILL.md) | Plan implementation work from requirements or technical specifications. | Resource-aware development plan |
-| [`make-qa-plan`](skills/make-qa-plan/SKILL.md) | Define QA strategy, coverage, risks, resources, and release readiness. | Risk-based QA plan |
-| [`gen-api-test-cases`](skills/gen-api-test-cases/SKILL.md) | Design framework-independent API tests from requirements or API documentation. | Categorized API test cases or TestRail export |
-| [`gen-e2e-test-cases`](skills/gen-e2e-test-cases/SKILL.md) | Design framework-independent user-journey and browser tests. | Categorized E2E test cases or TestRail export |
-| [`gen-api-test-cases-playwright`](skills/gen-api-test-cases-playwright/SKILL.md) | Convert API test cases into Playwright API automation. | Playwright API test files and supporting code |
-| [`gen-e2e-test-cases-playwright`](skills/gen-e2e-test-cases-playwright/SKILL.md) | Convert E2E test cases into Playwright browser automation. | Playwright E2E test files and supporting code |
+| Skill                                                                            | Use it when you need to                                                        | Main output                                   |
+| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
+| [`make-dev-plan`](skills/make-dev-plan/SKILL.md)                                 | Plan implementation work from requirements or technical specifications.        | Resource-aware development plan               |
+| [`make-qa-plan`](skills/make-qa-plan/SKILL.md)                                   | Define QA strategy, coverage, risks, resources, and release readiness.         | Risk-based QA plan                            |
+| [`gen-api-test-cases`](skills/gen-api-test-cases/SKILL.md)                       | Design framework-independent API tests from requirements or API documentation. | Categorized API test cases or TestRail export |
+| [`gen-e2e-test-cases`](skills/gen-e2e-test-cases/SKILL.md)                       | Design framework-independent user-journey and browser tests.                   | Categorized E2E test cases or TestRail export |
+| [`gen-api-test-cases-playwright`](skills/gen-api-test-cases-playwright/SKILL.md) | Convert API test cases into Playwright API automation.                         | Playwright API test files and supporting code |
+| [`gen-e2e-test-cases-playwright`](skills/gen-e2e-test-cases-playwright/SKILL.md) | Convert E2E test cases into Playwright browser automation.                     | Playwright E2E test files and supporting code |
 
 ## Recommended workflow
 
@@ -264,12 +264,12 @@ Both layouts use real Markdown headings and normally include:
 
 Test-case IDs use these prefixes:
 
-| Prefix | Category |
-| --- | --- |
-| `TC-F-###` | Functional |
-| `TC-E-###` | Edge case |
-| `TC-ERR-###` | Error handling |
-| `TC-ST-###` | State transition |
+| Prefix       | Category         |
+| ------------ | ---------------- |
+| `TC-F-###`   | Functional       |
+| `TC-E-###`   | Edge case        |
+| `TC-ERR-###` | Error handling   |
+| `TC-ST-###`  | State transition |
 
 Request TestRail exports explicitly:
 
@@ -343,24 +343,6 @@ npx -y skills add https://github.com/cuongnguyen4285/ai-skills-project --list
 ```
 
 An actual installation is required for install telemetry. skills.sh indexing and install counts may update asynchronously; they cannot be set from `SKILL.md`, `openai.yaml`, or this README.
-
-## Troubleshooting
-
-### The skill name is not recognized
-
-Start a new Codex conversation, use the exact `$` name from the overview table, or reference the local `SKILL.md` directly.
-
-### The CLI finds the repository but skills.sh does not show a page
-
-Confirm that the GitHub repository is public, run the full installation command above rather than only `--list`, and allow time for registry indexing. The repository layout is one `SKILL.md` at `skills/<skill-name>/SKILL.md` for each skill.
-
-### Playwright code cannot be generated
-
-Provide a real target project path and test cases. The project should contain its Playwright configuration, dependencies, fixtures, or page objects when those are required. The skill reports missing selectors, accounts, environment variables, schemas, and cleanup information instead of inventing them.
-
-### Estimates look too precise
-
-Provide team roles, availability, working days, dependencies, and a deadline. Estimates remain estimates; the planning skills separate person-days from calendar duration and state assumptions.
 
 ## Repository structure
 
