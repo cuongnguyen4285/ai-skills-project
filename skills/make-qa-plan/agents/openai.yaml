@@ -1,0 +1,6 @@
+interface:
+  display_name: "Make QA Plan"
+  short_description: "Create a resource-aware QA strategy"
+  default_prompt: "Use $make-qa-plan to turn these requirements into a QA plan with coverage, staffing, and schedule estimates."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Generate Playwright API Tests"
+  short_description: "Convert API cases to Playwright tests"
+  default_prompt: "Use $gen-api-test-cases-playwright to convert these API test cases into maintainable Playwright API tests."
+policy:
+  allow_implicit_invocation: true

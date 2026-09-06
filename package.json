@@ -1,0 +1,11 @@
+{
+  "name": "ai-skills",
+  "version": "1.0.0",
+  "description": "Independent agent skills for development planning, QA planning, test-case generation, and Playwright automation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

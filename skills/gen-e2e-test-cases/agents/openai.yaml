@@ -1,0 +1,6 @@
+interface:
+  display_name: "Generate E2E Test Cases"
+  short_description: "Generate E2E cases and TestRail exports"
+  default_prompt: "Use $gen-e2e-test-cases to generate detailed E2E test cases from these user requirements."
+policy:
+  allow_implicit_invocation: true

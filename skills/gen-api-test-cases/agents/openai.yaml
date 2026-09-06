@@ -1,0 +1,6 @@
+interface:
+  display_name: "Generate API Test Cases"
+  short_description: "Generate API cases and TestRail exports"
+  default_prompt: "Use $gen-api-test-cases to generate API test cases from this specification in detailed layout."
+policy:
+  allow_implicit_invocation: true

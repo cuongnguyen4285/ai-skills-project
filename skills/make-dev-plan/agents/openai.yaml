@@ -1,0 +1,6 @@
+interface:
+  display_name: "Make Dev Plan"
+  short_description: "Create a resource-aware development plan"
+  default_prompt: "Use $make-dev-plan to turn these requirements into a development plan with effort and schedule estimates."
+policy:
+  allow_implicit_invocation: true

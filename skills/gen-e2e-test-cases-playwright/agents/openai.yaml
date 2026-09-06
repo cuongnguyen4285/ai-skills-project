@@ -1,0 +1,6 @@
+interface:
+  display_name: "Generate Playwright E2E Tests"
+  short_description: "Convert E2E cases to Playwright tests"
+  default_prompt: "Use $gen-e2e-test-cases-playwright to convert these E2E test cases into maintainable Playwright browser tests."
+policy:
+  allow_implicit_invocation: true
