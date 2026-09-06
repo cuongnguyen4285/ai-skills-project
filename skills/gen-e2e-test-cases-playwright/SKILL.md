@@ -43,7 +43,7 @@ Do not assume that every project uses Page Object Model, custom fixtures, TypeSc
 - Do not add `test.only`, disabled tests, swallowed errors, or blanket retries to hide failures. Treat retries as CI resilience, not a flakiness strategy.
 - Use screenshot comparisons only when the requirement is visual and follow the target project's snapshot naming and threshold conventions.
 
-## Page Object Model mode
+## Page Object Model model
 
 When the target repository uses POM, follow these rules:
 
