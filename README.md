@@ -1,197 +1,159 @@
 # AI Skills
 
-Six independent Codex skills for turning requirements into development plans, QA plans, test cases, and Playwright tests.
+Six independent skills for Codex and other agents that support the open Agent Skills format. They cover development planning, QA planning, test-case design, and Playwright test generation.
 
-## Quick start
+The skills are instruction packages loaded by an AI host. They are not standalone applications and do not require an OpenAI API key.
 
-Install all six skills globally for Codex:
+Repository: <https://github.com/cuongnguyen4285/ai-skills-project>
+
+## Contents
+
+| Skill                           | Use it for                                                                                          | Documentation                                                                                                                                              |
+| ------------------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `make-dev-plan`                 | Development plans with scope, effort, staffing, dependencies, risks, milestones, and schedule       | [SKILL.md](skills/make-dev-plan/SKILL.md) · [skills.sh](https://skills.sh/cuongnguyen4285/ai-skills-project/make-dev-plan)                                 |
+| `make-qa-plan`                  | Risk-based QA plans, coverage, environments, test data, automation, staffing, and release readiness | [SKILL.md](skills/make-qa-plan/SKILL.md) · [skills.sh](https://skills.sh/cuongnguyen4285/ai-skills-project/make-qa-plan)                                   |
+| `gen-api-test-cases`            | Requirement-driven, framework-independent API test cases and TestRail exports                       | [SKILL.md](skills/gen-api-test-cases/SKILL.md) · [skills.sh](https://skills.sh/cuongnguyen4285/ai-skills-project/gen-api-test-cases)                       |
+| `gen-e2e-test-cases`            | Requirement-driven browser and user-journey test cases and TestRail exports                         | [SKILL.md](skills/gen-e2e-test-cases/SKILL.md) · [skills.sh](https://skills.sh/cuongnguyen4285/ai-skills-project/gen-e2e-test-cases)                       |
+| `gen-api-test-cases-playwright` | Playwright API automation from existing API test cases                                              | [SKILL.md](skills/gen-api-test-cases-playwright/SKILL.md) · [skills.sh](https://skills.sh/cuongnguyen4285/ai-skills-project/gen-api-test-cases-playwright) |
+| `gen-e2e-test-cases-playwright` | Playwright browser automation from existing E2E test cases                                          | [SKILL.md](skills/gen-e2e-test-cases-playwright/SKILL.md) · [skills.sh](https://skills.sh/cuongnguyen4285/ai-skills-project/gen-e2e-test-cases-playwright) |
+
+The individual skills.sh links are the canonical public URLs. The repository-level URL may not display a page until the repository has been indexed.
+
+## Requirements
+
+- Node.js and `npx`.
+- A compatible AI agent, such as Codex, Claude Code, Cursor, or another agent supported by the `skills` CLI.
+- A public GitHub repository when you want skills.sh discovery and indexing.
+
+No dependency installation is required in this repository. The `skills` CLI is run through `npx`.
+
+## Install the skills
+
+### Install all skills for Codex
+
+Run this command in a terminal. Keep the GitHub URL or repository shorthand as plain terminal text; do not paste Markdown link syntax into the command.
 
 ```bash
-npx skills add https://github.com/cuongnguyen4285/ai-skills-project \
+npx skills add cuongnguyen4285/ai-skills-project \
   --agent codex \
   --skill '*' \
   --global \
   --yes
 ```
 
-Install only one skill when needed:
+### Install one skill for Codex
 
 ```bash
-npx skills add https://github.com/cuongnguyen4285/ai-skills-project \
+npx skills add cuongnguyen4285/ai-skills-project \
   --agent codex \
   --skill gen-api-test-cases \
   --global \
   --yes
 ```
 
-After installation:
+Replace `gen-api-test-cases` with any skill name from the table above.
 
-1. Start a new Codex conversation or restart Codex.
-2. Invoke a skill with its `$` name, such as `$make-qa-plan`.
-3. Attach a PDF, paste requirements, or provide a project path as requested by the skill.
-4. Review assumptions and generated output before using it in a project.
+### Install for every supported agent
 
-The URL must be plain text in a terminal. Do not include Markdown link syntax such as `[URL](URL)` or add a backslash before command options.
-
-## Skill overview
-
-| Skill                                                                            | Use it when you need to                                                        | Main output                                   |
-| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
-| [`make-dev-plan`](skills/make-dev-plan/SKILL.md)                                 | Plan implementation work from requirements or technical specifications.        | Resource-aware development plan               |
-| [`make-qa-plan`](skills/make-qa-plan/SKILL.md)                                   | Define QA strategy, coverage, risks, resources, and release readiness.         | Risk-based QA plan                            |
-| [`gen-api-test-cases`](skills/gen-api-test-cases/SKILL.md)                       | Design framework-independent API tests from requirements or API documentation. | Categorized API test cases or TestRail export |
-| [`gen-e2e-test-cases`](skills/gen-e2e-test-cases/SKILL.md)                       | Design framework-independent user-journey and browser tests.                   | Categorized E2E test cases or TestRail export |
-| [`gen-api-test-cases-playwright`](skills/gen-api-test-cases-playwright/SKILL.md) | Convert API test cases into Playwright API automation.                         | Playwright API test files and supporting code |
-| [`gen-e2e-test-cases-playwright`](skills/gen-e2e-test-cases-playwright/SKILL.md) | Convert E2E test cases into Playwright browser automation.                     | Playwright E2E test files and supporting code |
-
-## Recommended workflow
-
-Use the skills in this order when starting from a new feature:
-
-```text
-Requirements or specification
-        |
-        +--> $make-dev-plan
-        |
-        +--> $make-qa-plan
-        |
-        +--> $gen-api-test-cases       (API coverage)
-        |
-        +--> $gen-e2e-test-cases       (user-journey coverage)
-                    |
-                    +--> $gen-api-test-cases-playwright
-                    |
-                    +--> $gen-e2e-test-cases-playwright
+```bash
+npx skills add cuongnguyen4285/ai-skills-project \
+  --agent '*' \
+  --skill '*' \
+  --global \
+  --yes
 ```
 
-The planning skills are independent. You can use only the QA plan, only the development plan, or start directly with test cases when the requirements are already clear.
+Use `--global` for user-level installation. Omit it to install into the current project when the CLI supports project-scoped installation for your agent.
 
-## Guide for each skill
+### Verify an installation
 
-### 1. `make-dev-plan`
+List the skills installed globally:
 
-Use this skill for implementation planning. It analyzes scope, affected components, dependencies, effort, staffing, risks, milestones, and the critical path. It does not generate source code or detailed test cases.
+```bash
+npx skills ls --global
+```
 
-Provide:
+Inspect the skills available in this repository without installing them:
 
-- Requirements, technical specification, or user stories
-- Team size or roles; the default is 4 members
-- Availability, such as `80%`
-- Start date, deadline, working days, or fixed milestones when known
-- Existing repository or architecture information when relevant
+```bash
+npx skills add cuongnguyen4285/ai-skills-project --list
+```
 
-Example:
+## Use a skill in Codex
+
+After installation:
+
+1. Start a new Codex conversation, or restart Codex if the skill is not recognized.
+2. Invoke the skill by its `$` name, for example `$make-qa-plan`.
+3. Attach or paste the requirements, specification, OpenAPI document, or test cases requested by the skill.
+4. Include project paths, team constraints, environments, browsers, and output formats when relevant.
+5. Review assumptions, missing information, generated files, and traceability before using the result.
+
+## Examples by skill
+
+Each example below is a complete starting prompt. Replace the sample feature,
+file, and project details with your own context.
+
+### `make-dev-plan`
 
 ```text
 $make-dev-plan
 
-Create a development plan for the attached passwordless login requirements.
-Use 4 members with 80% availability:
+Create a development plan for the attached passwordless-login requirements.
+Assume four team members with 80% availability:
 - 2 backend developers
 - 1 frontend developer
 - 1 DevOps engineer
 
-Include person-day estimates, calendar duration, dependencies, milestones,
-risks, acceptance criteria, and requirement-to-task traceability.
+Include scope, affected components, person-day effort, calendar duration,
+dependencies, milestones, critical path, risks, acceptance criteria, and
+requirement-to-task traceability. Separate assumptions from confirmed facts.
 ```
 
-The result separates person-day effort from calendar duration and identifies assumptions instead of presenting uncertain dates as facts.
-
-### 2. `make-qa-plan`
-
-Use this skill for QA strategy and release planning. It covers risk, test levels, environments, accounts, data, automation, staffing, effort, schedule, and entry/exit criteria. It does not replace detailed API or E2E test-case generation.
-
-Provide:
-
-- Product requirements or specification
-- User roles and supported platforms when known
-- QA team size or roles; the default is 4 members
-- Availability, such as `80%`
-- Environment, test-data, integration, browser, or release constraints
-
-Example:
+### `make-qa-plan`
 
 ```text
 $make-qa-plan
 
-Create a QA plan from the attached requirements for password reset by email.
-Assume 4 QA members with 80% availability:
+Create a risk-based QA plan for the attached password-reset requirements.
+Assume four QA members with 80% availability:
 - QA lead
 - Manual QA engineer
 - Automation QA engineer
 - Security QA engineer
 
 Cover API, UI, E2E, accessibility, security, rate limiting, email failures,
-test data, environments, effort, schedule, entry criteria, exit criteria,
-and release risks.
+test data, environments, automation candidates, effort, schedule, entry
+criteria, exit criteria, and release risks.
 ```
 
-The result is a QA strategy and schedule. Ask a test-case skill afterward when you need executable test cases.
-
-### 3. `gen-api-test-cases`
-
-Use this skill to create framework-independent API test cases from OpenAPI/Swagger, endpoint documentation, requirements, examples, or business rules.
-
-Provide:
-
-- API specification or endpoint documentation
-- Authentication and authorization rules
-- Required fields, schemas, status codes, and business rules
-- Test-data constraints and cleanup requirements
-- Desired layout and export format
-
-Example:
+### `gen-api-test-cases`
 
 ```text
 $gen-api-test-cases
 
-Generate API test cases for the attached OpenAPI specification.
-Use layout=detailed and export=csv for TestRail.
-Cover positive, negative, boundary, authentication, authorization,
-validation, duplicate-request, pagination, and error scenarios when they
-are supported by the specification.
+Generate detailed API test cases from the attached OpenAPI specification.
+Export=csv for TestRail. Cover positive, negative, boundary, authentication,
+authorization, validation, duplicate-request, pagination, and error scenarios
+when supported by the specification. Preserve requirement references and report
+any behavior that is not defined by the specification.
 ```
 
-The skill produces traceable cases grouped into Functional, Edge Case, Error Handling, and State Transition categories when applicable. Each case includes a requirement reference, priority, preconditions, executable steps, measurable expected results, and postconditions.
-
-### 4. `gen-e2e-test-cases`
-
-Use this skill to design framework-independent browser and user-journey tests from requirements, user stories, acceptance criteria, workflows, or UX specifications.
-
-Provide:
-
-- User journeys and acceptance criteria
-- Personas, roles, and permissions
-- Starting state, test accounts, and required data
-- Supported browsers, devices, or platforms when relevant
-- Desired layout and export format
-
-Example:
+### `gen-e2e-test-cases`
 
 ```text
 $gen-e2e-test-cases
 
-Generate E2E test cases for the attached checkout requirements.
-Use layout=detailed and export=xml for TestRail.
-Cover successful checkout, invalid payment, empty cart, out-of-stock items,
+Generate compact E2E test cases for the attached checkout user stories.
+Cover successful checkout, invalid payment, an empty cart, out-of-stock items,
 session expiry, navigation, persistence, and recovery flows.
+
+Include primary journeys, alternate flows, validation, error handling, state
+transitions, priorities, preconditions, test data, and a coverage matrix.
+Export=xml for TestRail.
 ```
 
-The skill creates cases for primary journeys, alternate flows, validation, error handling, state transitions, navigation, and recovery without inventing selectors or implementation details.
-
-### 5. `gen-api-test-cases-playwright`
-
-Use this skill after API test cases exist and you want Playwright API automation. It uses `@playwright/test` and `APIRequestContext` by default, while preserving the target project's existing conventions.
-
-Provide:
-
-- The API test cases or TestRail export
-- Target project path
-- Language and Playwright version if they are not discoverable
-- Environment, authentication, fixture, controller, and cleanup details
-- Permission to create or modify files
-
-Example:
+### `gen-api-test-cases-playwright`
 
 ```text
 $gen-api-test-cases-playwright
@@ -200,166 +162,160 @@ Convert API cases TC-F-001, TC-ERR-002, and TC-E-003 into TypeScript
 Playwright API tests.
 
 Project path: ./orders-service
-Use the existing API fixtures, controllers, authentication helpers, and
-naming conventions. Preserve the test-case IDs and report all missing
-schemas, credentials, environment variables, or cleanup requirements.
+Use the existing API fixtures, controllers, authentication helpers, schemas,
+configuration, and naming conventions. Preserve the test-case IDs. Do not
+invent endpoints, credentials, response schemas, or cleanup behavior. Report
+all missing configuration before making changes.
 ```
 
-Before generating code, the skill inspects the project. It reuses existing fixtures, controllers, models, configuration, authentication, and test data. It does not invent endpoints, credentials, schemas, or architecture.
-
-### 6. `gen-e2e-test-cases-playwright`
-
-Use this skill after E2E test cases exist and you want Playwright browser automation.
-
-Provide:
-
-- The E2E test cases or TestRail export
-- Target project path
-- Language and Playwright version if they are not discoverable
-- Existing page objects, fixtures, authentication, routes, and test-data rules
-- Permission to create or modify files
-
-Example:
+### `gen-e2e-test-cases-playwright`
 
 ```text
 $gen-e2e-test-cases-playwright
 
-Convert the attached login E2E cases into TypeScript Playwright tests.
-
+Convert the attached E2E cases into TypeScript Playwright tests.
 Project path: ./web-app
-Use the existing Page Object Model, custom fixtures, storage state, and
-locator conventions. Preserve the test-case IDs. Do not use
-page.waitForTimeout(). Report selector gaps, missing accounts, and required
-configuration changes before making code changes.
+Use the existing page objects, fixtures, authentication state, and locator
+conventions. Preserve the test-case IDs. Do not use page.waitForTimeout().
+Report missing selectors, routes, accounts, test data, and configuration
+before making changes.
 ```
 
-The skill prefers stable role, label, text, and test-ID locators; uses existing POM and fixtures when available; avoids hard-coded secrets and arbitrary sleeps; and reports files, configuration, execution commands, traceability, and unresolved assumptions.
+## Index the skills on skills.sh
 
-## Test-case options
+skills.sh discovers public skills from GitHub repositories through the `skills` CLI. There is no separate `publish` command in this repository.
 
-The API and E2E test-case skills support two layouts:
+### 1. Make the repository discoverable
 
-- `layout=detailed` (default): every action and expected result is paired in a `Step | Action | Expected Result` table.
-- `layout=compact`: all actions are in one numbered Steps block and all outcomes are in one Expected Results block.
+Before indexing, confirm that:
 
-Examples:
+- The GitHub repository is public.
+- Each skill is in a supported layout such as `skills/<skill-name>/SKILL.md`.
+- Each `SKILL.md` has valid YAML frontmatter with at least `name` and `description`.
+- The frontmatter `name` matches the skill directory and the name used in installation commands.
+- The default branch contains the latest committed files.
+
+This repository uses the supported flat layout:
 
 ```text
-Use layout=detailed with one expected result for every step.
+skills/<skill-name>/SKILL.md
 ```
 
-```text
-Use layout=compact with all actions in one block and all expected results in
-one block.
-```
+### 2. Check the repository locally
 
-Both layouts use real Markdown headings and normally include:
-
-- Overview and scope metadata
-- Functional tests
-- Edge case tests
-- Error handling tests
-- State transition tests when applicable
-- Test coverage matrix
-
-Test-case IDs use these prefixes:
-
-| Prefix       | Category         |
-| ------------ | ---------------- |
-| `TC-F-###`   | Functional       |
-| `TC-E-###`   | Edge case        |
-| `TC-ERR-###` | Error handling   |
-| `TC-ST-###`  | State transition |
-
-Request TestRail exports explicitly:
-
-```text
-Generate detailed API test cases and export=csv for TestRail.
-```
-
-```text
-Generate compact E2E test cases and export=xml for TestRail.
-```
-
-Markdown is the default output. When asked to save Markdown in a repository, the default paths are `tests/<feature-name>-api-test-cases.md` and `tests/<feature-name>-e2e-test-cases.md`. Export fields that cannot be mapped are reported as warnings instead of being silently discarded.
-
-## Supplying files and requirements
-
-You can:
-
-- Attach a PDF, OpenAPI file, or requirements document.
-- Paste requirements directly into the prompt.
-- Provide a repository path for Playwright generation.
-- Include explicit constraints such as team size, availability, browsers, environments, or release dates.
-
-Clearly label instructions that belong to the requirements document versus instructions for the skill. For example: “Treat the attached PDF as the product requirements. Assume 4 QA members with 80% availability.”
-
-## How skills work
-
-A skill is an instruction package for an AI host. It is not a standalone application and it does not call OpenAI by itself.
-
-```text
-Your prompt
-    ↓
-AI host, such as Codex or an application using an OpenAI model
-    ↓
-The host selects and loads SKILL.md
-    ↓
-The model follows the skill instructions and produces the result
-```
-
-The `agents/openai.yaml` files contain UI metadata and discovery settings. They do not make API requests. The AI host owns model access, authentication, billing, tool access, and file permissions. This repository does not need an OpenAI API key to define or validate the skills.
-
-If `$skill-name` is not recognized, use the local instruction file directly:
-
-```text
-Read and follow skills/make-qa-plan/SKILL.md.
-
-Create a QA plan for these requirements:
-[paste or attach requirements here]
-```
-
-## skills.sh links
-
-This repository is public at `cuongnguyen4285/ai-skills-project`.
-
-Repository page:
-
-- <https://www.skills.sh/cuongnguyen4285/ai-skills-project>
-
-Individual skill pages:
-
-- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/make-dev-plan>
-- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/make-qa-plan>
-- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/gen-api-test-cases>
-- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/gen-e2e-test-cases>
-- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/gen-api-test-cases-playwright>
-- <https://www.skills.sh/cuongnguyen4285/ai-skills-project/gen-e2e-test-cases-playwright>
-
-The official CLI can confirm repository discovery:
+List the skills recognized by the CLI without installing them:
 
 ```bash
-npx -y skills add https://github.com/cuongnguyen4285/ai-skills-project --list
+npx skills add cuongnguyen4285/ai-skills-project --list
 ```
 
-An actual installation is required for install telemetry. skills.sh indexing and install counts may update asynchronously; they cannot be set from `SKILL.md`, `openai.yaml`, or this README.
+If the CLI reports no skills, check the frontmatter and directory layout first.
+
+### 3. Create an indexed installation event
+
+Install the public repository at least once:
+
+```bash
+npx skills add cuongnguyen4285/ai-skills-project \
+  --agent '*' \
+  --skill '*' \
+  --global \
+  --yes
+```
+
+skills.sh uses CLI activity and anonymous install telemetry for discovery and ranking. Indexing and install counts update asynchronously, so a newly installed repository may not appear immediately.
+
+### 4. Check discovery
+
+Search the CLI by skill name:
+
+```bash
+npx skills find gen-api-test-cases
+```
+
+Then open the individual page using this pattern:
+
+```text
+https://skills.sh/<github-owner>/<github-repository>/<skill-name>
+```
+
+For this repository, the expected pages are listed in the [Contents](#contents) table. A repository-level skills.sh URL is not a reliable substitute for an individual skill URL.
+
+Do not expect to control install counts or indexing status from `SKILL.md`, `agents/openai.yaml`, `package.json`, or this README.
 
 ## Repository structure
 
 ```text
-skills/
-├── make-dev-plan/SKILL.md
-├── make-qa-plan/SKILL.md
-├── gen-api-test-cases/SKILL.md
-├── gen-e2e-test-cases/SKILL.md
-├── gen-api-test-cases-playwright/SKILL.md
-└── gen-e2e-test-cases-playwright/SKILL.md
+.
+├── README.md
+├── package.json
+└── skills
+    ├── make-dev-plan
+    │   ├── SKILL.md
+    │   └── agents/openai.yaml
+    ├── make-qa-plan
+    │   ├── SKILL.md
+    │   └── agents/openai.yaml
+    ├── gen-api-test-cases
+    │   ├── SKILL.md
+    │   └── agents/openai.yaml
+    ├── gen-e2e-test-cases
+    │   ├── SKILL.md
+    │   └── agents/openai.yaml
+    ├── gen-api-test-cases-playwright
+    │   ├── SKILL.md
+    │   └── agents/openai.yaml
+    └── gen-e2e-test-cases-playwright
+        ├── SKILL.md
+        └── agents/openai.yaml
 ```
 
-Each skill also contains `agents/openai.yaml` metadata. Validate a skill with the skill-creator validator:
+`SKILL.md` contains the instructions followed by the AI host. `agents/openai.yaml` contains agent-specific UI metadata and does not provide model access or authentication.
+
+## Validate changes before publishing
+
+After editing a skill, review its frontmatter and run the repository discovery check:
 
 ```bash
-python3 /Users/lw11643/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/make-dev-plan
+npx skills add cuongnguyen4285/ai-skills-project --list
 ```
 
-Repeat the command for each skill directory before publishing or indexing the repository.
+For a complete review, check that:
+
+- The skill name is unique and stable.
+- The description explains when the skill should be used.
+- Instructions define scope, workflow, inputs, outputs, assumptions, and boundaries.
+- The skill does not invent credentials, endpoints, selectors, schemas, or project architecture.
+- Examples use the correct `$skill-name`.
+- Generated files, secrets, and unrelated project files are not changed without permission.
+- README links, installation commands, and skill names agree.
+
+Commit and push changes to the default branch before asking skills.sh to rediscover the repository.
+
+## Troubleshooting
+
+### `npx skills add ... --list` finds no skills
+
+Check that the repository is public, the files are committed and pushed, the directory is under `skills/`, and the YAML frontmatter contains both `name` and `description`.
+
+### The skill installs but `$skill-name` is not recognized
+
+Confirm the installation target with:
+
+```bash
+npx skills ls --global
+```
+
+Then start a new Codex conversation or restart the agent. You can also use the local `SKILL.md` directly while diagnosing installation.
+
+### The skills.sh page is not available
+
+Use the individual URL from the [Contents](#contents) table, not only the repository root. Confirm that the repository is public and wait for asynchronous indexing after the first installation. Use `npx skills find <query>` to check whether the skill has entered the CLI index.
+
+### A Playwright skill cannot generate code
+
+Provide the target project path and existing test cases. The Playwright skills intentionally stop and report missing fixtures, routes, credentials, schemas, selectors, or cleanup rules instead of guessing them.
+
+## License
+
+This repository currently declares the ISC license in `package.json`.
