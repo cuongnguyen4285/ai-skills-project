@@ -129,3 +129,22 @@ Default options are `layout=detailed` and `export=none`. If the user asks to sav
 - Preconditions, postconditions, cleanup, and test data are explicit.
 - The coverage matrix shows complete, partial, or missing coverage.
 - Exported fields are mapped or reported as unsupported.
+
+## Example
+
+```text
+$gen-e2e-test-cases
+
+Generate test cases for the attached checkout user stories.
+
+Requirements:
+- A signed-in customer can add products to a cart and complete checkout.
+- Invalid payment details show an error without losing the cart.
+- The confirmation displays the order number.
+- A customer cannot view another customer's order.
+
+Role: signed-in customer
+Layout: compact
+Export: xml
+Target: TestRail
+```

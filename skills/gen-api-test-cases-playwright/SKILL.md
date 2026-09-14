@@ -155,3 +155,17 @@ Adapt imports, paths, fixtures, configuration, and test-data utilities to the ta
 - Response status, body, schema, and side effects are asserted where required.
 - Tests are independent, deterministic, tagged, and clean up their data.
 - Generated code is formatted and type-checkable according to the target project.
+
+## Prompt example
+
+```text
+$gen-api-test-cases-playwright
+
+Convert API cases TC-F-001, TC-ERR-002, and TC-E-003 into TypeScript
+Playwright API tests.
+
+Project path: ./orders-service
+Framework: existing TypeScript Playwright project
+Existing conventions: request fixture, controller pattern, authentication
+helpers, API schemas, environment configuration, and TestRail tags
+```

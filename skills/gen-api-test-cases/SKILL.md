@@ -130,3 +130,22 @@ Default options are `layout=detailed` and `export=none`. If the user asks to sav
 - Preconditions, postconditions, cleanup, and test data are explicit.
 - The coverage matrix shows complete, partial, or missing coverage.
 - Exported fields are mapped or reported as unsupported.
+
+## Example
+
+```text
+$gen-api-test-cases
+
+Generate test cases for the attached OpenAPI specification for the create-order
+API.
+
+Requirements:
+- An authenticated customer can create an order with one or more items.
+- Quantity must be a positive integer.
+- An unavailable product must be rejected.
+- A repeated idempotency key must not create two orders.
+
+Layout: detailed
+Export: csv
+Target: TestRail
+```

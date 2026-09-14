@@ -58,3 +58,23 @@ Include best-case, expected, and risk-adjusted scenarios when uncertainty is mat
 - Calendar duration is not confused with person-day effort.
 - Risks, mitigations, and open decisions are actionable.
 - The plan does not silently assume implementation details that are not provided.
+
+## Example
+
+```text
+$make-dev-plan
+
+Create an implementation plan for passwordless email login.
+
+Requirements: API, web UI, email-provider integration, database migration,
+monitoring, and rollout documentation.
+
+Team: 4 members
+Roles:
+- 2 backend developers
+- 1 frontend developer
+- 1 DevOps engineer
+Availability: 80%
+
+Open decisions: token expiry and email retry behavior.
+```

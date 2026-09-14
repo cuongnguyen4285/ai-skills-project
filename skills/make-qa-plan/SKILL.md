@@ -56,3 +56,18 @@ Cover API, integration, UI, E2E, exploratory, regression, accessibility, perform
 - Entry and exit criteria are measurable.
 - Resource assumptions and schedule dependencies are explicit.
 - Release risks and unresolved questions are visible.
+
+## Example
+
+```text
+$make-qa-plan
+
+Create a risk-based QA plan for password reset by email.
+
+Cover expired links, rate limiting, email delivery failures, accessibility,
+security, and browser support.
+
+Team: 4 members
+Roles: QA lead, manual QA, automation QA, security QA
+Availability: 80%
+```

@@ -166,3 +166,15 @@ The example assumes the repository has `BaseConfig.getTestAccount()` and a `logi
 - Tests can run independently and safely in parallel.
 - Authentication, cleanup, failure diagnostics, and execution commands are documented.
 - The generated code is formatted and type-checkable according to the target project.
+
+## Prompt example
+
+```text
+$gen-e2e-test-cases-playwright
+
+Convert the attached E2E cases into TypeScript Playwright tests.
+Project path: ./web-app
+Framework: existing Playwright web project
+Existing conventions: page objects, custom fixtures, authentication state,
+shared components, and stable locator strategy
+```
