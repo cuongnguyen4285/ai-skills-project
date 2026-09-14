@@ -40,6 +40,7 @@ Use this complete Markdown structure unless the user requests another format. Ke
 # API Test Cases: [Feature Name]
 
 ## Overview
+
 **Feature**: [Feature name]
 **Requirements Source**: [PRD, OpenAPI file, or description]
 **API Scope**: [Endpoints and operations covered]
@@ -58,34 +59,40 @@ Use this complete Markdown structure unless the user requests another format. Ke
 **Authentication**: Valid customer token
 
 ##### 1. Test Summary
+
 Verify that product details are returned for a valid product ID.
 
 ##### 2. Pre-condition
+
 - The API service is available.
 - A valid product exists.
 - The caller has valid authorization.
 
 ##### 3. Test Steps
-| Step | Action | Expected Result |
-|---|---|---|
-| 1 | Send `GET /products/{productId}` with a valid ID. | The request is accepted. |
-| 2 | Observe the response status. | The API returns `200 OK`. |
-| 3 | Validate the response body. | Product details are returned. |
-| 4 | Validate required fields. | Required fields are present. |
-| 5 | Compare the product ID. | The response ID matches the requested ID. |
+
+| Step | Action                                            | Expected Result                           |
+| ---- | ------------------------------------------------- | ----------------------------------------- |
+| 1    | Send `GET /products/{productId}` with a valid ID. | The request is accepted.                  |
+| 2    | Observe the response status.                      | The API returns `200 OK`.                 |
+| 3    | Validate the response body.                       | Product details are returned.             |
+| 4    | Validate required fields.                         | Required fields are present.              |
+| 5    | Compare the product ID.                           | The response ID matches the requested ID. |
 
 ##### 4. Post-condition
+
 - No test data is modified.
 
 ## 2. Edge Case Tests
+
 ## 3. Error Handling Tests
+
 ## 4. State Transition Tests
 
 ## Test Coverage Matrix
-| Requirement ID | Test Cases | Coverage Status |
-|---|---|---|
-| REQ-001 | TC-F-001 | Complete |
 
+| Requirement ID | Test Cases | Coverage Status |
+| -------------- | ---------- | --------------- |
+| REQ-001        | TC-F-001   | Complete        |
 ```
 
 Include only applicable categories, but always include the coverage matrix. Put important assumptions or coverage gaps in the Overview metadata or directly in the affected test case; do not add separate Notes or Quality Checklist sections. Use IDs:
@@ -123,21 +130,3 @@ Default options are `layout=detailed` and `export=none`. If the user asks to sav
 - Preconditions, postconditions, cleanup, and test data are explicit.
 - The coverage matrix shows complete, partial, or missing coverage.
 - Exported fields are mapped or reported as unsupported.
-
-## Example
-
-```text
-Use $gen-api-test-cases for the create-order API.
-
-Requirements:
-- An authenticated customer can create an order with one or more items.
-- Quantity must be a positive integer.
-- An unavailable product must be rejected.
-- A duplicate request with the same idempotency key must not create two orders.
-
-Layout: detailed
-Export: csv
-Target: TestRail
-```
-
-Expected output includes functional creation cases, boundary cases for quantity, error cases for unavailable products and authentication failures, a state/idempotency case, and a coverage matrix linked to every requirement.

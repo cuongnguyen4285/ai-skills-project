@@ -40,6 +40,7 @@ Use this complete Markdown structure unless the user requests another format. Ke
 # E2E Test Cases: [Feature Name]
 
 ## Overview
+
 **Feature**: [Feature name]
 **Requirements Source**: [PRD, user stories, or description]
 **User Roles**: [roles covered]
@@ -58,33 +59,39 @@ Use this complete Markdown structure unless the user requests another format. Ke
 **Persona**: Registered customer
 
 ##### 1. Test Summary
+
 Verify that a registered user can successfully log in.
 
 ##### 2. Pre-condition
+
 - The application is accessible.
 - The user has a valid, active account.
 - The user is on the Login page.
 
 ##### 3. Test Steps
-| Step | Action | Expected Result |
-|---|---|---|
-| 1 | Enter a valid email address. | The email is accepted and displayed correctly. |
-| 2 | Enter the correct password. | The password characters are masked. |
-| 3 | Click the “Login” button. | The user is redirected to the dashboard. |
+
+| Step | Action                       | Expected Result                                |
+| ---- | ---------------------------- | ---------------------------------------------- |
+| 1    | Enter a valid email address. | The email is accepted and displayed correctly. |
+| 2    | Enter the correct password.  | The password characters are masked.            |
+| 3    | Click the “Login” button.    | The user is redirected to the dashboard.       |
 
 ##### 4. Post-condition
+
 - The user is authenticated.
 - An active session is created.
 
 ## 2. Edge Case Tests
+
 ## 3. Error Handling Tests
+
 ## 4. State Transition Tests
 
 ## Test Coverage Matrix
-| Requirement ID | Test Cases | Coverage Status |
-|---|---|---|
-| REQ-001 | TC-F-001 | Complete |
 
+| Requirement ID | Test Cases | Coverage Status |
+| -------------- | ---------- | --------------- |
+| REQ-001        | TC-F-001   | Complete        |
 ```
 
 Include only applicable categories, but always include the coverage matrix. Put important assumptions or coverage gaps in the Overview metadata or directly in the affected test case; do not add separate Notes or Quality Checklist sections. Use IDs:
@@ -122,21 +129,3 @@ Default options are `layout=detailed` and `export=none`. If the user asks to sav
 - Preconditions, postconditions, cleanup, and test data are explicit.
 - The coverage matrix shows complete, partial, or missing coverage.
 - Exported fields are mapped or reported as unsupported.
-
-## Example
-
-```text
-Use $gen-e2e-test-cases for the checkout flow.
-
-Requirements:
-- A signed-in customer can add products to a cart and complete checkout.
-- Invalid payment details show a clear error without losing the cart.
-- The order confirmation displays the order number.
-- A customer cannot view another customer's order.
-
-Role: customer
-Layout: detailed
-Export: none
-```
-
-Expected output includes functional cases for successful checkout, edge cases for an empty or changed cart, error cases for invalid payment details, permission coverage for another customer's order, and a coverage matrix linked to each requirement.

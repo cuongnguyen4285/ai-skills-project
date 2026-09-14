@@ -91,23 +91,28 @@ After installation:
 
 ## Examples by skill
 
-Each example below is a complete starting prompt. Replace the sample feature,
-file, and project details with your own context.
+Each example below is a starting prompt focused on feature-specific context and
+optional settings. The corresponding `SKILL.md` defines the default workflow,
+output structure, and quality rules.
 
 ### `make-dev-plan`
 
 ```text
 $make-dev-plan
 
-Create a development plan for the attached passwordless-login requirements.
-Assume four team members with 80% availability:
+Create an implementation plan for passwordless email login.
+
+Requirements: API, web UI, email-provider integration, database migration,
+monitoring, and rollout documentation.
+
+Team: 4 members
+Roles:
 - 2 backend developers
 - 1 frontend developer
 - 1 DevOps engineer
+Availability: 80%
 
-Include scope, affected components, person-day effort, calendar duration,
-dependencies, milestones, critical path, risks, acceptance criteria, and
-requirement-to-task traceability. Separate assumptions from confirmed facts.
+Open decisions: token expiry and email retry behavior.
 ```
 
 ### `make-qa-plan`
@@ -115,16 +120,14 @@ requirement-to-task traceability. Separate assumptions from confirmed facts.
 ```text
 $make-qa-plan
 
-Create a risk-based QA plan for the attached password-reset requirements.
-Assume four QA members with 80% availability:
-- QA lead
-- Manual QA engineer
-- Automation QA engineer
-- Security QA engineer
+Create a risk-based QA plan for password reset by email.
 
-Cover API, UI, E2E, accessibility, security, rate limiting, email failures,
-test data, environments, automation candidates, effort, schedule, entry
-criteria, exit criteria, and release risks.
+Cover expired links, rate limiting, email delivery failures, accessibility,
+security, and browser support.
+
+Team: 4 members
+Roles: QA lead, manual QA, automation QA, security QA
+Availability: 80%
 ```
 
 ### `gen-api-test-cases`
@@ -132,11 +135,18 @@ criteria, exit criteria, and release risks.
 ```text
 $gen-api-test-cases
 
-Generate detailed API test cases from the attached OpenAPI specification.
-Export=csv for TestRail. Cover positive, negative, boundary, authentication,
-authorization, validation, duplicate-request, pagination, and error scenarios
-when supported by the specification. Preserve requirement references and report
-any behavior that is not defined by the specification.
+Generate test cases for the attached OpenAPI specification for the create-order
+API.
+
+Requirements:
+- An authenticated customer can create an order with one or more items.
+- Quantity must be a positive integer.
+- An unavailable product must be rejected.
+- A repeated idempotency key must not create two orders.
+
+Layout: detailed
+Export: csv
+Target: TestRail
 ```
 
 ### `gen-e2e-test-cases`
@@ -144,13 +154,18 @@ any behavior that is not defined by the specification.
 ```text
 $gen-e2e-test-cases
 
-Generate compact E2E test cases for the attached checkout user stories.
-Cover successful checkout, invalid payment, an empty cart, out-of-stock items,
-session expiry, navigation, persistence, and recovery flows.
+Generate test cases for the attached checkout user stories.
 
-Include primary journeys, alternate flows, validation, error handling, state
-transitions, priorities, preconditions, test data, and a coverage matrix.
-Export=xml for TestRail.
+Requirements:
+- A signed-in customer can add products to a cart and complete checkout.
+- Invalid payment details show an error without losing the cart.
+- The confirmation displays the order number.
+- A customer cannot view another customer's order.
+
+Role: signed-in customer
+Layout: compact
+Export: xml
+Target: TestRail
 ```
 
 ### `gen-api-test-cases-playwright`
@@ -162,10 +177,9 @@ Convert API cases TC-F-001, TC-ERR-002, and TC-E-003 into TypeScript
 Playwright API tests.
 
 Project path: ./orders-service
-Use the existing API fixtures, controllers, authentication helpers, schemas,
-configuration, and naming conventions. Preserve the test-case IDs. Do not
-invent endpoints, credentials, response schemas, or cleanup behavior. Report
-all missing configuration before making changes.
+Framework: existing TypeScript Playwright project
+Existing conventions: request fixture, controller pattern, authentication
+helpers, API schemas, environment configuration, and TestRail tags
 ```
 
 ### `gen-e2e-test-cases-playwright`
@@ -175,10 +189,9 @@ $gen-e2e-test-cases-playwright
 
 Convert the attached E2E cases into TypeScript Playwright tests.
 Project path: ./web-app
-Use the existing page objects, fixtures, authentication state, and locator
-conventions. Preserve the test-case IDs. Do not use page.waitForTimeout().
-Report missing selectors, routes, accounts, test data, and configuration
-before making changes.
+Framework: existing Playwright web project
+Existing conventions: page objects, custom fixtures, authentication state,
+shared components, and stable locator strategy
 ```
 
 ## Index the skills on skills.sh
@@ -271,51 +284,3 @@ Do not expect to control install counts or indexing status from `SKILL.md`, `age
 ```
 
 `SKILL.md` contains the instructions followed by the AI host. `agents/openai.yaml` contains agent-specific UI metadata and does not provide model access or authentication.
-
-## Validate changes before publishing
-
-After editing a skill, review its frontmatter and run the repository discovery check:
-
-```bash
-npx skills add cuongnguyen4285/ai-skills-project --list
-```
-
-For a complete review, check that:
-
-- The skill name is unique and stable.
-- The description explains when the skill should be used.
-- Instructions define scope, workflow, inputs, outputs, assumptions, and boundaries.
-- The skill does not invent credentials, endpoints, selectors, schemas, or project architecture.
-- Examples use the correct `$skill-name`.
-- Generated files, secrets, and unrelated project files are not changed without permission.
-- README links, installation commands, and skill names agree.
-
-Commit and push changes to the default branch before asking skills.sh to rediscover the repository.
-
-## Troubleshooting
-
-### `npx skills add ... --list` finds no skills
-
-Check that the repository is public, the files are committed and pushed, the directory is under `skills/`, and the YAML frontmatter contains both `name` and `description`.
-
-### The skill installs but `$skill-name` is not recognized
-
-Confirm the installation target with:
-
-```bash
-npx skills ls --global
-```
-
-Then start a new Codex conversation or restart the agent. You can also use the local `SKILL.md` directly while diagnosing installation.
-
-### The skills.sh page is not available
-
-Use the individual URL from the [Contents](#contents) table, not only the repository root. Confirm that the repository is public and wait for asynchronous indexing after the first installation. Use `npx skills find <query>` to check whether the skill has entered the CLI index.
-
-### A Playwright skill cannot generate code
-
-Provide the target project path and existing test cases. The Playwright skills intentionally stop and report missing fixtures, routes, credentials, schemas, selectors, or cleanup rules instead of guessing them.
-
-## License
-
-This repository currently declares the ISC license in `package.json`.
