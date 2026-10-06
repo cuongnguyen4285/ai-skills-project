@@ -59,7 +59,7 @@ export class SinglyLinkedList {
         newNode.next = currentNode.next;
         currentNode.next = newNode;
 
-        if (currentNode === this.tail) {
+        if (newNode.next === null) {
           this.tail = newNode;
         }
 
