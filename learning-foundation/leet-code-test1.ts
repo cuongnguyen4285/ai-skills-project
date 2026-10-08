@@ -222,3 +222,19 @@ function intToRoman(num: number): string {
 
   return result;
 }
+
+function removeDuplicates(nums: number[]): number {
+  const numMap = new Map<number, boolean>();
+  let k = 0;
+
+  for (const num of nums) {
+    if (!numMap.has(num)) {
+      numMap.set(num, true);
+
+      nums[k] = num;
+      k++;
+    }
+  }
+
+  return k;
+}
